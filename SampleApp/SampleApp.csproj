@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+        <Nullable>enable</Nullable>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net7.0</TargetFramework>
+        <TrimMode>copyused</TrimMode>
+    </PropertyGroup>
+    <ItemGroup>
+        <AvaloniaResource Include="Themes/**" />
+        <None Remove=".gitignore" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="11.0.0-preview4" />
+        <PackageReference Include="Avalonia.Desktop" Version="11.0.0-preview4" />
+        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.0-preview4" />
+        <PackageReference Include="FluentAvaloniaUI" Version="2.0.0-preview4" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="../SatialInterfaces/ChartControl.csproj" />
+    </ItemGroup>
+</Project>

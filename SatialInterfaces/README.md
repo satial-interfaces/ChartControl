@@ -1,0 +1,1 @@
+ChartControl is a chart control (line with markers) for Avalonia. Go to the source repository, see and run the sample app to get to know it.

@@ -1,0 +1,78 @@
+<Styles xmlns="https://github.com/avaloniaui"
+    xmlns:si="clr-namespace:SatialInterfaces.Controls;assembly=ChartControl"
+    xmlns:sic="clr-namespace:SatialInterfaces.Converters;assembly=ChartControl"
+    xmlns:s="clr-namespace:System;assembly=mscorlib"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Styles.Resources>
+        <sic:XOffsetThresholdConverter x:Key="XOffsetThresholdConverter" />
+		<s:Double x:Key="XOffsetThreshold">8.0</s:Double>
+    </Styles.Resources>
+    <Style Selector="si|ChartControl">
+		<Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource ControlStrokeColorDefault}" />
+		<Setter Property="BorderThickness" Value="{DynamicResource TextControlBorderThemeThickness}" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <ContentPresenter Name="PART_ContentPresenter" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding CornerRadius}" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+            </ControlTemplate>
+        </Setter>
+        <Setter Property="GridStroke">
+            <SolidColorBrush Color="{DynamicResource ControlStrokeColorDefault}" />
+        </Setter>
+		<Setter Property="GridStrokeThickness" Value="1" />
+        <Setter Property="LineStroke">
+            <SolidColorBrush Color="{DynamicResource SystemAccentColor}" />
+        </Setter>
+		<Setter Property="LineStrokeThickness" Value="2" />
+    </Style>
+    <Style Selector="si|ChartControl Border#TopAxisBorder">
+        <Setter Property="BorderBrush" Value="{DynamicResource ControlStrokeColorSecondary}" />
+        <Setter Property="BorderThickness" Value="0.5" />
+    </Style>
+    <Style Selector="si|ChartControl Border#BottomAxisBorder">
+        <Setter Property="BorderBrush" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+        <Setter Property="BorderThickness" Value="0.5" />
+    </Style>
+    <Style Selector="si|ChartControl Border#LeftAxisBorder">
+        <Setter Property="BorderBrush" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+        <Setter Property="BorderThickness" Value="0.5" />
+    </Style>
+    <Style Selector="si|ChartControl Border#RightAxisBorder">
+        <Setter Property="BorderBrush" Value="{DynamicResource ControlStrokeColorSecondary}" />
+        <Setter Property="BorderThickness" Value="0.5" />
+    </Style>
+    <Style Selector="si|ChartControl Canvas#Canvas">
+        <Setter Property="ClipToBounds" Value="True" />
+    </Style>
+    <Style Selector="si|ChartControl Grid#OuterMostGrid">
+        <Setter Property="Margin" Value="8,8,8,8" />
+    </Style>
+    <Style Selector="si|ChartControl Grid#XAxisInnerGrid">
+        <Setter Property="Margin" Value="0,4,0,0" />
+    </Style>
+    <Style Selector="si|ChartControl Grid#YAxisGrid">
+        <Setter Property="Margin" Value="0,0,4,0" />
+    </Style>
+   <Style Selector="si|ChartControl ScrollViewer#DayScrollViewer">
+		<Setter Property="Height" Value="20" />
+    </Style>
+    <Style Selector="si|ChartControl ScrollViewer#MainScrollViewer">
+        <Setter Property="Offset" Value="{Binding Path=$self.Offset, Converter={StaticResource XOffsetThresholdConverter}, ConverterParameter={StaticResource XOffsetThreshold}}" />
+    </Style>
+   <Style Selector="si|ChartPoint">
+		<Setter Property="Height" Value="12" />
+		<Setter Property="Width" Value="12" />
+        <Setter Property="Fill">
+            <SolidColorBrush Color="{DynamicResource TextOnAccentFillColorPrimary}" />
+        </Setter>
+        <Setter Property="Stroke">
+            <SolidColorBrush Color="{DynamicResource SystemAccentColor}" />
+        </Setter>
+        <Setter Property="StrokeThickness" Value="2" />
+    </Style>
+    <Style Selector="si|ChartPoint:selected">
+        <Setter Property="Fill">
+            <SolidColorBrush Color="{DynamicResource SystemAccentColor}" />
+        </Setter>
+    </Style>
+</Styles>

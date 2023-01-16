@@ -1,0 +1,43 @@
+<Window xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:si="clr-namespace:SatialInterfaces.Controls;assembly=ChartControl"
+    xmlns:v="clr-namespace:SampleApp.Views"
+    mc:Ignorable="d"
+    d:DesignWidth="800"
+    d:DesignHeight="450"
+    x:Class="SampleApp.Views.MainWindow"
+    Title="SampleApp"
+    XAxisTitle="X-axis"
+    YAxisTitle="Y-axis">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <v:XValueConverter x:Key="XValueConverter" />
+                </ResourceDictionary>
+                <ResourceDictionary>
+                    <v:YValueConverter x:Key="YValueConverter" />
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Margin="8,8,8,8" ColumnDefinitions="*,Auto" RowDefinitions="*,Auto">
+        <si:ChartControl Items="{Binding $parent[v:MainWindow].Items}" Name="ChartControl" XAxisTitle="{Binding $parent[v:MainWindow].XAxisTitle}" XValueConverter="{StaticResource XValueConverter}" YAxisTitle="{Binding $parent[v:MainWindow].YAxisTitle}" YValueConverter="{StaticResource YValueConverter}">
+            <Design.DataContext>
+                <v:ChartPointViewModel />
+            </Design.DataContext>
+            <si:ChartControl.ItemTemplate>
+                <DataTemplate>
+                    <si:ChartPoint x:CompileBindings="True" x:DataType="v:ChartPointViewModel" X="{Binding X}" Y="{Binding Y}" />
+                </DataTemplate>
+            </si:ChartControl.ItemTemplate>
+        </si:ChartControl>
+        <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,8,0,0" Spacing="8" Orientation="Horizontal">
+            <Button Click="RandomButtonClick">Random</Button>
+        </StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="1" IsVisible="False">
+        </StackPanel>
+    </Grid>
+</Window>

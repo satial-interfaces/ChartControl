@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <Authors>Satial Interfaces</Authors>
+        <Company>Satial Interfaces</Company>
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
+        <PackageId>ChartControl.Avalonia</PackageId>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <RepositoryUrl>https://github.com/satial-interfaces/ChartControl</RepositoryUrl>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <Version>11.0.0-preview4</Version>
+    </PropertyGroup>
+    <ItemGroup>
+        <None Remove=".gitignore" />
+        <None Include="README.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="11.0.0-preview4" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Converters" />
+    </ItemGroup>
+</Project>

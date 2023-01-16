@@ -1,0 +1,74 @@
+<ContentControl x:Class="SatialInterfaces.Controls.ChartControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:si="clr-namespace:SatialInterfaces.Controls"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <ContentControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <si:MarginConverter x:Key="MarginConverter" />
+                </ResourceDictionary>
+                <ResourceDictionary>
+                    <si:VerticalControlMarginConverter x:Key="VerticalControlMarginConverter" />
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentControl.Resources>
+    <Grid ColumnDefinitions="Auto,Auto,*" Name="OuterMostGrid">
+        <Grid Grid.Column="0" Margin="{Binding #XAxisGrid.Bounds.Height, Converter={StaticResource MarginConverter}}" Width="32">
+            <TextBlock Name="YAxisTextBlock" ClipToBounds="False" HorizontalAlignment="Center" Text="{Binding $parent[si:ChartControl].YAxisTitle}" VerticalAlignment="Bottom">
+                <Grid.Margin>
+                    <MultiBinding Converter="{StaticResource VerticalControlMarginConverter}">
+                        <Binding Path="$self.FontSize" />
+                        <Binding Path="$self.Text" />
+                        <Binding Path="$self" />
+                        <Binding Path="$parent[Grid].Bounds.Width" />
+                        <Binding Path="$parent[Grid].Bounds.Height" />
+                        <Binding Path="$parent[Grid].Margin" />
+                    </MultiBinding>
+                </Grid.Margin>
+                <TextBlock.RenderTransform>
+                    <RotateTransform Angle="-90" CenterX="0" CenterY="0"/>        
+                </TextBlock.RenderTransform>
+            </TextBlock>
+        </Grid>
+        <Grid Grid.Column="1" Margin="{Binding #XAxisGrid.Bounds.Height, Converter={StaticResource MarginConverter}}">
+            <Grid Name="YAxisGrid" RowDefinitions="Auto,*,Auto">
+                <StackPanel Grid.Row="0">
+                    <TextBlock HorizontalAlignment="Right" Name="YMaximumTextBlock" Text="{Binding $parent[si:ChartControl].YMaximum.Y}" />
+                </StackPanel>
+                <StackPanel Grid.Row="2">
+                    <TextBlock HorizontalAlignment="Right" Name="YMinimumTextBlock" Text="{Binding $parent[si:ChartControl].YMinimum.Y}" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <Grid Grid.Column="2" RowDefinitions="*,Auto">
+            <Grid Grid.Row="0" RowDefinitions="Auto,*,Auto">
+                <Border Grid.Row="0" Name="TopAxisBorder" />
+                <Grid Grid.Row="1" ColumnDefinitions="Auto,*,Auto">
+                    <Border Grid.Column="0" Name="LeftAxisBorder" />
+                    <Canvas Grid.Column="1" Name="Canvas">
+                        <Polyline Name="Polyline" Stroke="{Binding $parent[si:ChartControl].LineStroke}" StrokeThickness="{Binding $parent[si:ChartControl].LineStrokeThickness}">
+                        </Polyline>
+                    </Canvas>
+                    <Border Grid.Column="2" Name="RightAxisBorder" />
+                </Grid>
+                <Border Grid.Row="2" Name="BottomAxisBorder" />
+            </Grid>
+            <Grid Grid.Row="1" Name="XAxisGrid" RowDefinitions="Auto,Auto">
+                <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto" Name="XAxisInnerGrid">
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Top">
+                        <TextBlock Name="XMinimumTextBlock" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Top">
+                        <TextBlock Name="XMaximumTextBlock" />
+                    </StackPanel>
+                </Grid>
+                <TextBlock Grid.Row="1" Height="32" HorizontalAlignment="Left" Name="XAxisTextBlock" Text="{Binding $parent[si:ChartControl].XAxisTitle}" VerticalAlignment="Center" />
+            </Grid>
+        </Grid>
+    </Grid>
+</ContentControl>
