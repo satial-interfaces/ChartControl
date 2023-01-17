@@ -7,14 +7,54 @@
                 <ContentPresenter Name="PART_ContentPresenter" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding CornerRadius}" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
             </ControlTemplate>
         </Setter>
-        <Setter Property="GridStroke" Value="{DynamicResource SystemControlBackgroundListLowBrush}" />
-		<Setter Property="GridStrokeThickness" Value="1" />
+		<Setter Property="Background" Value="{DynamicResource SystemControlBackgroundAltHighBrush}" />
+        <Setter Property="GridStroke" Value="#66000000" />
+		<Setter Property="GridStrokeThickness" Value="2" />
         <Setter Property="LineStroke">
             <SolidColorBrush Color="{DynamicResource SystemAccentColor}" />
         </Setter>
 		<Setter Property="LineStrokeThickness" Value="2" />
     </Style>
-    <Style Selector="si|ChartControl ScrollViewer#DayScrollViewer">
-		<Setter Property="Height" Value="20" />
+    <Style Selector="si|ChartControl Border#TopAxisBorder">
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemControlBackgroundBaseMediumHighBrush}" />
+        <Setter Property="BorderThickness" Value="0.5" />
+    </Style>
+    <Style Selector="si|ChartControl Border#BottomAxisBorder">
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemControlBackgroundBaseHighBrush}" />
+        <Setter Property="BorderThickness" Value="0.5" />
+    </Style>
+    <Style Selector="si|ChartControl Border#LeftAxisBorder">
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemControlBackgroundBaseHighBrush}" />
+        <Setter Property="BorderThickness" Value="0.5" />
+    </Style>
+    <Style Selector="si|ChartControl Border#RightAxisBorder">
+        <Setter Property="BorderBrush" Value="{DynamicResource SystemControlBackgroundBaseMediumHighBrush}" />
+        <Setter Property="BorderThickness" Value="0.5" />
+    </Style>
+    <Style Selector="si|ChartControl Canvas#Canvas">
+        <Setter Property="ClipToBounds" Value="True" />
+    </Style>
+    <Style Selector="si|ChartControl Grid#OuterMostGrid">
+        <Setter Property="Margin" Value="8,8,8,8" />
+    </Style>
+    <Style Selector="si|ChartControl Grid#XAxisInnerGrid">
+        <Setter Property="Margin" Value="0,4,0,0" />
+    </Style>
+    <Style Selector="si|ChartControl Grid#YAxisGrid">
+        <Setter Property="Margin" Value="0,0,4,0" />
+    </Style>
+   <Style Selector="si|ChartPoint">
+		<Setter Property="Height" Value="12" />
+		<Setter Property="Width" Value="12" />
+        <Setter Property="Fill">
+            <SolidColorBrush Color="{DynamicResource SystemAccentColor}" />
+        </Setter>
+        <Setter Property="Stroke">
+            <SolidColorBrush Color="{DynamicResource SystemAccentColor}" />
+        </Setter>
+        <Setter Property="StrokeThickness" Value="2" />
+    </Style>
+    <Style Selector="si|ChartPoint:selected">
+        <Setter Property="Fill" Value="#FFFFFFFF" />
     </Style>
 </Styles>
