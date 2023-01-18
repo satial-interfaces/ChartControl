@@ -71,6 +71,7 @@ public class ChartPoint : Ellipse, IChartPoint
 		if (value is float f) return f;
 		if (value is int i) return i;
 		if (value is long ul) return ul;
+		if (value is DateTime dt) return dt.Ticks;
 
 		if (value is byte b) return b;
 		if (value is sbyte sb) return sb;

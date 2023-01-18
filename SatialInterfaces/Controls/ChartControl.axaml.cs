@@ -338,8 +338,10 @@ public class ChartControl : ContentControl, IStyleable
 			Canvas.SetTop(item, y - (item.Height / 2.0));
 		}
 
-		DrawXGridLines(xMinimum, xMaximum);
-		DrawYGridLines(yMinimum, yMaximum);
+		var xIsDateTime = chartPoints[stats.XMinimumIndex].X is DateTime;
+		var yIsDateTime = chartPoints[stats.YMinimumIndex].Y is DateTime;
+		DrawXGridLines(xMinimum, xMaximum, xIsDateTime);
+		DrawYGridLines(yMinimum, yMaximum, yIsDateTime);
 		polyline.Points = points;
 		YMinimum = indexedItems[stats.YMinimumIndex];
 		YMaximum = indexedItems[stats.YMaximumIndex];
@@ -435,13 +437,12 @@ public class ChartControl : ContentControl, IStyleable
 	/// </summary>
 	/// <param name="minimumX">Minimum of the X-values.</param>
 	/// <param name="maximumX">Maximum of the X-values.</param>
-	void DrawXGridLines(double minimumX, double maximumX)
+	/// <param name="isDateTime">Flag if the values are date/time objects.</param>
+	void DrawXGridLines(double minimumX, double maximumX, bool isDateTime)
 	{
 		if (canvas == null) return;
-		var range = maximumX - minimumX;
-		var stepSize = GridHelper.GetGridSize(range, 8);
+		GetGridValues(minimumX, maximumX, isDateTime, out double range, out double stepSize, out double beginValue);
 		var list = new List<Line>();
-		var beginValue = GridHelper.RoundUp(minimumX, stepSize);
 		for (var d = beginValue; d < maximumX; d += stepSize)
 		{
 			var x = (d - minimumX) / range * canvas.Bounds.Width;
@@ -459,13 +460,12 @@ public class ChartControl : ContentControl, IStyleable
 	/// </summary>
 	/// <param name="minimumY">Minimum of the Y-values.</param>
 	/// <param name="maximumY">Maximum of the XY-values.</param>
-	void DrawYGridLines(double minimumY, double maximumY)
+	/// <param name="isDateTime">Flag if the values are date/time objects.</param>
+	void DrawYGridLines(double minimumY, double maximumY, bool isDateTime)
 	{
 		if (canvas == null) return;
-		var range = maximumY - minimumY;
-		var stepSize = GridHelper.GetGridSize(range, 8);
+		GetGridValues(minimumY, maximumY, isDateTime, out double range, out double stepSize, out double beginValue);
 		var list = new List<Line>();
-		var beginValue = GridHelper.RoundUp(minimumY, stepSize);
 		for (var d = beginValue; d < maximumY; d += stepSize)
 		{
 			var y = (1.0 - ((d - minimumY) / range)) * canvas.Bounds.Height;
@@ -476,6 +476,36 @@ public class ChartControl : ContentControl, IStyleable
 			list.Add(line);
 		}
 		canvas.Children.InsertRange(0, list);
+	}
+
+	/// <summary>
+	/// Gets the grid values: range, step size and begin value
+	/// </summary>
+	/// <param name="minimum">Minimum of values.</param>
+	/// <param name="maximum">Maximum of values.</param>
+	/// <param name="isDateTime">Flag if the values are date/time objects.</param>
+	/// <param name="range">[out] The range.</param>
+	/// <param name="stepSize">[out] The step size.</param>
+	/// <param name="beginValue">[out] The begin value.</param>
+	static void GetGridValues(double minimum, double maximum, bool isDateTime, out double range, out double stepSize, out double beginValue)
+	{
+		range = maximum - minimum;
+		if (isDateTime)
+		{
+			stepSize = (range / 1e7) switch
+			{
+				< 60.0 => 1e7 * 1.0,// Seconds
+				< 3600.0 => 1e7 * 60.0,// Minutes
+				< 86400.0 => 1e7 * 3600.0,// Hours
+				< 365.2425 * 86400.0 => 1e7 * 86400.0,// Days
+				_ => 1e7 * (365.2425 * 86400.0),// Years
+			};
+		}
+		else
+		{
+			stepSize = GridHelper.GetGridSize(range, 8);
+		}
+		beginValue = GridHelper.RoundUp(minimum, stepSize);
 	}
 
 	/// <summary>
