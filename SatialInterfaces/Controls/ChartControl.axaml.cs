@@ -321,16 +321,16 @@ public class ChartControl : ContentControl, IStyleable
 		var points = new List<Point>();
 
 		var stats = GetStatistics(chartPoints);
-		var xMinimum = chartPoints[stats.XMinimumIndex].X;
-		var xMaximum = chartPoints[stats.XMaximumIndex].X;
-		var yMinimum = chartPoints[stats.YMinimumIndex].Y;
-		var yMaximum = chartPoints[stats.YMaximumIndex].Y;
+		var xMinimum = chartPoints[stats.XMinimumIndex].XToDouble();
+		var xMaximum = chartPoints[stats.XMaximumIndex].XToDouble();
+		var yMinimum = chartPoints[stats.YMinimumIndex].YToDouble();
+		var yMaximum = chartPoints[stats.YMaximumIndex].YToDouble();
 		var xScale = canvas.Bounds.Width / (xMaximum - xMinimum);
 		var yScale = canvas.Bounds.Height / (yMaximum - yMinimum);
 		foreach (var item in chartPoints)
 		{
-			var x = (item.X - xMinimum) * xScale;
-			var y = canvas.Bounds.Height - (item.Y - yMinimum) * yScale;
+			var x = (item.XToDouble() - xMinimum) * xScale;
+			var y = canvas.Bounds.Height - (item.YToDouble() - yMinimum) * yScale;
 
 			points.Add(new Point(x, y));
 			canvas.Children.Add(item);
@@ -384,31 +384,31 @@ public class ChartControl : ContentControl, IStyleable
 				xMaximumIndex = i;
 				yMinimumIndex = i;
 				yMaximumIndex = i;
-				xMinimum = items[i].X;
-				xMaximum = items[i].X;
-				yMinimum = items[i].Y;
-				yMaximum = items[i].Y;
+				xMinimum = items[i].XToDouble();
+				xMaximum = items[i].XToDouble();
+				yMinimum = items[i].YToDouble();
+				yMaximum = items[i].YToDouble();
 				continue;
 			}
-			if (items[i].X < xMinimum)
+			if (items[i].XToDouble() < xMinimum)
 			{
 				xMinimumIndex = i;
-				xMinimum = items[i].X;
+				xMinimum = items[i].XToDouble();
 			}
-			if (items[i].X > xMaximum)
+			if (items[i].XToDouble() > xMaximum)
 			{
 				xMaximumIndex = i;
-				xMaximum = items[i].X;
+				xMaximum = items[i].XToDouble();
 			}
-			if (items[i].Y < yMinimum)
+			if (items[i].YToDouble() < yMinimum)
 			{
 				yMinimumIndex = i;
-				yMinimum = items[i].Y;
+				yMinimum = items[i].YToDouble();
 			}
-			if (items[i].Y > yMaximum)
+			if (items[i].YToDouble() > yMaximum)
 			{
 				yMaximumIndex = i;
-				yMaximum = items[i].Y;
+				yMaximum = items[i].YToDouble();
 			}
 		}
 		return (xMinimumIndex, xMaximumIndex, yMinimumIndex, yMaximumIndex);

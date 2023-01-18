@@ -1,3 +1,5 @@
+using System;
+using System.ComponentModel;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Metadata;
@@ -14,6 +16,16 @@ public interface IChartPoint : IControl
 	object? X { get; set; }
 	/// <summary>The Y position.</summary>
 	object? Y { get; set; }
+	/// <summary>
+	/// Converts the X-value to a double.
+	/// </summary>
+	/// <returns>The double or NaN otherwise.</returns>
+	double XToDouble();
+	/// <summary>
+	/// Converts the Y-value to a double.
+	/// </summary>
+	/// <returns>The double or NaN otherwise.</returns>
+	double YToDouble();
 }
 
 /// <summary>This class represents a chart point.</summary>
@@ -39,4 +51,50 @@ public class ChartPoint : Ellipse, IChartPoint
 	object? x;
 	/// <summary>Y position.</summary>
 	object? y;
+
+	/// <inheritdoc />
+	public double XToDouble() => ToDouble(x);
+
+	/// <inheritdoc />
+	public double YToDouble() => ToDouble(y);
+
+	/// <summary>
+	/// Converts the given object to a double.
+	/// </summary>
+	/// <param name="value">Value to convert.</param>
+	/// <returns>The double or NaN otherwise.</returns>
+	static double ToDouble(object? value)
+	{
+		if (value == null) return double.NaN;
+		// Most common types
+		if (value is double d) return d;
+		if (value is float f) return f;
+		if (value is int i) return i;
+		if (value is long ul) return ul;
+
+		if (value is byte b) return b;
+		if (value is sbyte sb) return sb;
+		if (value is char c) return c;
+		if (value is short s) return s;
+		if (value is ushort us) return us;
+		if (value is uint ui) return ui;
+
+		var targetType = typeof(double);
+		var converter = TypeDescriptor.GetConverter(targetType);
+		try
+		{
+			if (converter.CanConvertFrom(value.GetType()))
+				return (double)converter.ConvertFrom(value);
+			else
+				return double.NaN;
+		}
+		catch (ArgumentException)
+		{
+			return double.NaN;
+		}
+		catch (NotSupportedException)
+		{
+			return double.NaN;
+		}
+	}
 }
