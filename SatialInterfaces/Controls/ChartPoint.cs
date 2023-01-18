@@ -79,6 +79,7 @@ public class ChartPoint : Ellipse, IChartPoint
 		if (value is ushort us) return us;
 		if (value is uint ui) return ui;
 
+		// Use the more expensive Converters
 		var targetType = typeof(double);
 		var converter = TypeDescriptor.GetConverter(targetType);
 		try
