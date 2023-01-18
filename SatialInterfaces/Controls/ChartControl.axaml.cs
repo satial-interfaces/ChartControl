@@ -441,7 +441,7 @@ public class ChartControl : ContentControl, IStyleable
 	void DrawXGridLines(double minimumX, double maximumX, bool isDateTime)
 	{
 		if (canvas == null) return;
-		GetGridValues(minimumX, maximumX, isDateTime, out double range, out double stepSize, out double beginValue);
+		GetGridValues(minimumX, maximumX, isDateTime, out var range, out var stepSize, out var beginValue);
 		var list = new List<Line>();
 		for (var d = beginValue; d < maximumX; d += stepSize)
 		{
@@ -464,7 +464,7 @@ public class ChartControl : ContentControl, IStyleable
 	void DrawYGridLines(double minimumY, double maximumY, bool isDateTime)
 	{
 		if (canvas == null) return;
-		GetGridValues(minimumY, maximumY, isDateTime, out double range, out double stepSize, out double beginValue);
+		GetGridValues(minimumY, maximumY, isDateTime, out var range, out var stepSize, out var beginValue);
 		var list = new List<Line>();
 		for (var d = beginValue; d < maximumY; d += stepSize)
 		{
@@ -498,7 +498,7 @@ public class ChartControl : ContentControl, IStyleable
 				< 3600.0 => 1e7 * 60.0,// Minutes
 				< 86400.0 => 1e7 * 3600.0,// Hours
 				< 365.2425 * 86400.0 => 1e7 * 86400.0,// Days
-				_ => 1e7 * (365.2425 * 86400.0),// Years
+				_ => 1e7 * (365.2425 * 86400.0)// Years
 			};
 		}
 		else

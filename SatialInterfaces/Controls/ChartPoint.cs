@@ -41,9 +41,23 @@ public class ChartPoint : Ellipse, IChartPoint
 	/// <inheritdoc />
 	public int Index { get; set; }
 	/// <inheritdoc />
-	public object? X { get => x; set => SetAndRaise(XProperty, ref x, value); }
+	public object? X
+	{
+		get => x; set
+		{
+			SetAndRaise(XProperty, ref x, value);
+			cachedX = new double?();
+		}
+	}
 	/// <inheritdoc />
-	public object? Y { get => y; set => SetAndRaise(YProperty, ref y, value); }
+	public object? Y
+	{
+		get => y; set
+		{
+			SetAndRaise(YProperty, ref y, value);
+			cachedY = new double?();
+		}
+	}
 
 	/// <summary>Is selected.</summary>
 	bool isSelected;
@@ -53,10 +67,18 @@ public class ChartPoint : Ellipse, IChartPoint
 	object? y;
 
 	/// <inheritdoc />
-	public double XToDouble() => ToDouble(x);
+	public double XToDouble()
+	{
+		cachedX ??= ToDouble(x);
+		return cachedX.Value;
+	}
 
 	/// <inheritdoc />
-	public double YToDouble() => ToDouble(y);
+	public double YToDouble()
+	{
+		cachedY ??= ToDouble(y);
+		return cachedY.Value;
+	}
 
 	/// <summary>
 	/// Converts the given object to a double.
@@ -65,20 +87,34 @@ public class ChartPoint : Ellipse, IChartPoint
 	/// <returns>The double or NaN otherwise.</returns>
 	static double ToDouble(object? value)
 	{
-		if (value == null) return double.NaN;
-		// Most common types
-		if (value is double d) return d;
-		if (value is float f) return f;
-		if (value is int i) return i;
-		if (value is long ul) return ul;
-		if (value is DateTime dt) return dt.Ticks;
-
-		if (value is byte b) return b;
-		if (value is sbyte sb) return sb;
-		if (value is char c) return c;
-		if (value is short s) return s;
-		if (value is ushort us) return us;
-		if (value is uint ui) return ui;
+		switch (value)
+		{
+			case null:
+				return double.NaN;
+			// Most common types
+			case double d:
+				return d;
+			case float f:
+				return f;
+			case int i:
+				return i;
+			case long ul:
+				return ul;
+			case DateTime dt:
+				return dt.Ticks;
+			case byte b:
+				return b;
+			case sbyte sb:
+				return sb;
+			case char c:
+				return c;
+			case short s:
+				return s;
+			case ushort us:
+				return us;
+			case uint ui:
+				return ui;
+		}
 
 		// Use the more expensive Converters
 		var targetType = typeof(double);
@@ -87,8 +123,7 @@ public class ChartPoint : Ellipse, IChartPoint
 		{
 			if (converter.CanConvertFrom(value.GetType()))
 				return (double)converter.ConvertFrom(value);
-			else
-				return double.NaN;
+			return double.NaN;
 		}
 		catch (ArgumentException)
 		{
@@ -99,4 +134,13 @@ public class ChartPoint : Ellipse, IChartPoint
 			return double.NaN;
 		}
 	}
+
+	/// <summary>
+	/// Cached x value.
+	/// </summary>
+	double? cachedX;
+	/// <summary>
+	/// Cached y value.
+	/// </summary>
+	double? cachedY;
 }
