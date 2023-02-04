@@ -512,7 +512,7 @@ public class ChartControl : ContentControl, IStyleable
 	/// Bind the given line to the grid properties of this instance.
 	/// </summary>
 	/// <param name="line">Line to bind.</param>
-	void BindGridLine(IAvaloniaObject line)
+	void BindGridLine(AvaloniaObject line)
 	{
 		var binding = new Binding("GridStroke")
 		{

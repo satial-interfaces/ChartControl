@@ -4,11 +4,12 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Shapes;
+using Avalonia.LogicalTree;
 
 namespace SatialInterfaces.Controls;
 
 /// <summary>This interface represents a chart point.</summary>
-public interface IChartPoint : IControl
+public interface IChartPoint : ILogical
 {
 	/// <summary>Index property.</summary>
 	int Index { get; set; }

@@ -31,7 +31,7 @@ public class XValueConverter : IValueConverter
 		if (targetType != typeof(string))
 			return BindingOperations.DoNothing;
 
-		return value is ChartPointViewModel point ? (point.X.ToShortDateString() + " " + point.X.ToLongTimeString()) : BindingOperations.DoNothing;
+		return value is ChartPointViewModel point ? point.X.ToShortDateString() + " " + point.X.ToLongTimeString() : BindingOperations.DoNothing;
 	}
 }
 
@@ -98,7 +98,7 @@ public class MainWindow : Window
 		for (var i = 0; i < count; i++)
 		{
 			var x = (GetRandom(0, 255) - xOffset) / (double)xDivider;
-			var y = (GetRandom(0, 255) - yOffset)  / (double)yDivider;
+			var y = (GetRandom(0, 255) - yOffset) / (double)yDivider;
 			list.Add(new ChartPointViewModel { X = now.AddMinutes(x), Y = y });
 		}
 		list = list.OrderBy(x => x.X).ToList();
