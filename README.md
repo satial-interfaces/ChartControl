@@ -44,7 +44,7 @@ Then add the control to your Window.axaml (minimum)
 ````Xml
 <Window xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:si="clr-namespace:SatialInterfaces.Controls;assembly=ChartControl">
+    xmlns:si="clr-namespace:SatialInterfaces.Controls.Chart;assembly=ChartControl">
     <Grid>
         <si:ChartControl />
     </Grid>
@@ -56,7 +56,7 @@ It's even better to specify the item template with binding to your view model
 ````Xml
 <Window xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:si="clr-namespace:SatialInterfaces.Controls;assembly=ChartControl">
+    xmlns:si="clr-namespace:SatialInterfaces.Controls.Chart;assembly=ChartControl">
     <Grid>
         <si:ChartControl>
             <si:ChartControl.ItemTemplate>

@@ -18,7 +18,7 @@ using Avalonia.Media;
 using Avalonia.Styling;
 using SatialInterfaces.Helpers;
 
-namespace SatialInterfaces.Controls;
+namespace SatialInterfaces.Controls.Chart;
 
 internal class MarginConverter : IValueConverter
 {

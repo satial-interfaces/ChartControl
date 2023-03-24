@@ -6,7 +6,7 @@ using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Shapes;
 using Avalonia.LogicalTree;
 
-namespace SatialInterfaces.Controls;
+namespace SatialInterfaces.Controls.Chart;
 
 /// <summary>This interface represents a chart point.</summary>
 public interface IChartPoint : ILogical
