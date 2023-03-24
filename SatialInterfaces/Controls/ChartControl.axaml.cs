@@ -51,7 +51,7 @@ internal class VerticalControlMarginConverter : IMultiValueConverter
 }
 
 /// <summary>This class represents a chart control (line with markers).</summary>
-public class ChartControl : ContentControl, IStyleable
+public partial class ChartControl : ContentControl, IStyleable
 {
 	/// <summary>Items property</summary>
 	public static readonly DirectProperty<ChartControl, IEnumerable> ItemsProperty = AvaloniaProperty.RegisterDirect<ChartControl, IEnumerable>(nameof(Items), o => o.Items, (o, v) => o.Items = v);
