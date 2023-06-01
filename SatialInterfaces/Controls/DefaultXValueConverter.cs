@@ -4,6 +4,8 @@ using Avalonia.Data;
 using Avalonia.Data.Converters;
 using SatialInterfaces.Helpers;
 
+namespace SatialInterfaces.Controls.Chart;
+
 public class DefaultXValueConverter : IValueConverter
 {
 	public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)

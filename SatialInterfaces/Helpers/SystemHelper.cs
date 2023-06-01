@@ -19,6 +19,6 @@ internal static class SystemHelper
 		if (p != null)
     		return p.GetValue(obj);
         var f = Array.Find(obj.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly), m => string.Equals(m.Name, memberName, StringComparison.Ordinal));
-        return f != null ? f.GetValue(obj) : null;
+        return f?.GetValue(obj);
 	}
 }
