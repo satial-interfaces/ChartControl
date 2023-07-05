@@ -18,7 +18,7 @@ using Avalonia.Media;
 using Avalonia.Styling;
 using SatialInterfaces.Helpers;
 
-namespace SatialInterfaces.Controls;
+namespace SatialInterfaces.Controls.Chart;
 
 internal class MarginConverter : IValueConverter
 {
@@ -51,7 +51,7 @@ internal class VerticalControlMarginConverter : IMultiValueConverter
 }
 
 /// <summary>This class represents a chart control (line with markers).</summary>
-public class ChartControl : ContentControl, IStyleable
+public partial class ChartControl : ContentControl
 {
 	/// <summary>Items property</summary>
 	public static readonly DirectProperty<ChartControl, IEnumerable> ItemsProperty = AvaloniaProperty.RegisterDirect<ChartControl, IEnumerable>(nameof(Items), o => o.Items, (o, v) => o.Items = v);
@@ -195,6 +195,9 @@ public class ChartControl : ContentControl, IStyleable
 
 		base.OnKeyDown(e);
 	}
+
+	/// <inheritdoc />
+	protected override Type StyleKeyOverride => typeof(ChartControl);
 
 	/// <summary>
 	/// Items changed event.
@@ -599,8 +602,6 @@ public class ChartControl : ContentControl, IStyleable
 	/// <returns>The string.</returns>
 	string ConvertYValueToText(object? yValue) => ValueConverterHelper.ConvertValueToText(yValueConverter, yValue);
 
-	/// <inheritdoc />
-	Type IStyleable.StyleKey => typeof(ChartControl);
 	/// <summary>Items.</summary>
 	IEnumerable items = new AvaloniaList<object>();
 	/// <summary>State of the left mouse button</summary>

@@ -1,6 +1,6 @@
 using Avalonia.Interactivity;
 
-namespace SatialInterfaces.Controls;
+namespace SatialInterfaces.Controls.Chart;
 
 /// <summary>Expansion of the RoutedEventArgs class by providing a selected index;.</summary>
 public class ChartSelectionChangedEventArgs : RoutedEventArgs

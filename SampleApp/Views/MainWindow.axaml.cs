@@ -50,7 +50,7 @@ public class YValueConverter : IValueConverter
 		return value is ChartPointViewModel point ? string.Format(CultureInfo.CurrentCulture, "{0:F2} kg", point.Y) : BindingOperations.DoNothing;
 	}
 }
-public class MainWindow : Window
+public partial class MainWindow : Window
 {
 	/// <summary>
 	/// Identifies the <see cref="XAxisTitle" /> styled property.
