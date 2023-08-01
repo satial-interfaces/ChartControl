@@ -2,6 +2,7 @@
     <PropertyGroup>
         <Authors>Satial Interfaces</Authors>
         <Company>Satial Interfaces</Company>
+        <Description>ChartControl is a chart control (line with markers) for Avalonia.</Description>
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
         <PackageId>ChartControl.Avalonia</PackageId>
