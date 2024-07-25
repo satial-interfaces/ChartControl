@@ -4,10 +4,6 @@ This is a chart control (line with markers) for Avalonia. See and run the sample
 
 ![ChartControl screenshot](/Images/ChartControl.png)
 
-## Note for Avalonia 11.0
-
-Since Avalonia 11.0 there's a breaking change: the namespace changed from SatialInterfaces.Controls to SatialInterfaces.Controls.Chart. Please update your code.
-
 ## How to use
 
 First add the package to your project. Use NuGet to get it: https://www.nuget.org/packages/ChartControl.Avalonia/
